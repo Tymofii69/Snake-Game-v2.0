@@ -1,14 +1,36 @@
-#img {
-  display: block;
-  margin: auto;
-  height: 128px;
-  width: 128px;
-  padding: 2rem;
-}
 
-#canvas {
-  display: block;
-  margin: 2rem auto;
-  width: 540px;
-  height: 540px;
-}
+body {
+    background-color: rgb(137, 125, 1);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+  }
+  
+  #game-board {
+    background-color: #CCC;
+    width: 80vmin;
+    height: 80vmin;
+    display: grid;
+    grid-template-rows: repeat(21, 1fr);
+    grid-template-columns: repeat(21, 1fr);
+  }
+  
+  .snake {
+    background-color: yellow;
+    border: .25vmin solid black;
+  }
+  
+  .food {
+    background-color: greenyellow;
+    border: .25vmin solid black;
+  }
+  
+  .red-food {
+    background-color: red;
+    border: .25vmin solid black;
+  }
+  
