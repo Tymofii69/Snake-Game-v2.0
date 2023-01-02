@@ -1,29 +1,50 @@
-import { onSnake, expandSnake } from "./snake.js";
-import { randomGridPosition } from "./grid.js";
-import { addPoints, score } from "./food.js";
+import { expandSnake, onSnake2 } from "./snake.js";
+import { randomGridPositionForRedFood } from "./grid.js";
+import { addPoints, catchedFood, setCatchedFood, score } from "./food.js";
 export const GROW_RATE = 1;
-let food = getRandomPosition();
+let redFood = [];
+let secondsOfCountdown;
+let timer;
 export function update() {
-    if (onSnake(food)) {
+    if (catchedFood == 5) {
+        redFood = getRandomPosition();
+        window.setTimeout(function () { redFood = []; }, 3000);
+        secondsOfCountdown = 3;
+        document.querySelector("h1").innerHTML = secondsOfCountdown.toString();
+        timer = setInterval(function () {
+            if (secondsOfCountdown == 1) {
+                clearInterval(timer);
+                document.querySelector("h1").innerHTML = `Score: <span id=\"score\">${score}</span`;
+                return;
+            }
+            secondsOfCountdown--;
+            document.querySelector("h1").innerHTML = secondsOfCountdown.toString();
+        }, 1000);
+        setCatchedFood(0);
+    }
+    if (onSnake2(redFood)) {
         expandSnake(GROW_RATE);
-        food = getRandomPosition();
+        redFood = [];
         addPoints(GROW_RATE * 20);
-        document.getElementById("score").innerHTML = score.toString();
+        clearInterval(timer);
+        document.querySelector("h1").innerHTML = `Score: <span id=\"score\">${score}</span`;
     }
 }
 export function draw(gameBoard) {
-    const div = document.createElement("div");
-    div.style.gridRowStart = food.y.toString();
-    div.style.gridRowEnd = (food.y + 1).toString();
-    div.style.gridColumnStart = food.x.toString();
-    div.style.gridColumnEnd = (food.x + 1).toString();
-    div.classList.add("red-food");
-    gameBoard.appendChild(div);
+    if (redFood.length == 0)
+        return;
+    redFood.forEach((partOfFood) => {
+        const div = document.createElement("div");
+        div.style.gridRowStart = partOfFood.y.toString();
+        div.style.gridColumnStart = partOfFood.x.toString();
+        div.classList.add("red-food");
+        gameBoard.appendChild(div);
+    });
 }
 function getRandomPosition() {
     let newPosition;
-    while (newPosition == null || onSnake(newPosition)) {
-        newPosition = [Object.assign({}, randomGridPosition()),];
+    if (newPosition == null || onSnake2(newPosition)) {
+        newPosition = randomGridPositionForRedFood();
     }
     return newPosition;
 }

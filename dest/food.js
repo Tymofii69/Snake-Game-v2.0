@@ -1,14 +1,16 @@
 import { onSnake, expandSnake } from "./snake.js";
 import { randomGridPosition } from "./grid.js";
-export const GROW_RATE = 5;
+export const GROW_RATE = 1;
 let food = getRandomPosition();
 export let score = 0;
+export let catchedFood = 0;
 export function update() {
     if (onSnake(food)) {
         expandSnake(GROW_RATE);
         food = getRandomPosition();
         addPoints(GROW_RATE);
         document.getElementById("score").innerHTML = score.toString();
+        catchedFood++;
     }
 }
 export function draw(gameBoard) {
@@ -27,4 +29,7 @@ function getRandomPosition() {
         newPosition = randomGridPosition();
     }
     return newPosition;
+}
+export function setCatchedFood(value) {
+    catchedFood = value;
 }

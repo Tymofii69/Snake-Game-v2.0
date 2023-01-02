@@ -38,9 +38,15 @@ export function expandSnake(growRate: number) {
 }
 
 export function onSnake(position: coordinate, { ignoreHead = false } = {}){
-    return snakeBody.some((segment, index) => {
-        if (index === 0 && ignoreHead) return false;
-        return equalPositions(segment, position)
+        return snakeBody.some((segment, index) => {
+            if (index === 0 && ignoreHead) return false;
+            return equalPositions(segment, position)
+        })
+    }
+
+export function onSnake2(array: coordinate[]) {
+    return array.some((partOfRedFood: coordinate) => {
+        return onSnake(partOfRedFood);
     })
 }
 

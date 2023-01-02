@@ -1,10 +1,23 @@
 const GRID_SIZE = 21;
+let xOfFirstCell, yOfFirstCell: number;
 
 export function randomGridPosition(): coordinate {
     return {
         x: Math.floor(Math.random() * GRID_SIZE) + 1,
         y: Math.floor(Math.random() * GRID_SIZE) + 1,
     }
+}
+
+export function randomGridPositionForRedFood(): coordinate[] {  //the same function as for usual food, but random number is for 
+    // grid without last column and row, and it returns an array of 4 coordinates of RedFood
+    xOfFirstCell = Math.floor(Math.random() * (GRID_SIZE - 1) + 1);
+    yOfFirstCell = Math.floor(Math.random() * (GRID_SIZE - 1) + 1);
+    
+    return [
+        { x: xOfFirstCell, y: yOfFirstCell}, 
+        { x: xOfFirstCell + 1, y: yOfFirstCell}, 
+        { x: xOfFirstCell, y: yOfFirstCell + 1}, 
+        { x: xOfFirstCell + 1, y: yOfFirstCell + 1}, ]
 }
 
 export function outOfGrid(position: coordinate) {

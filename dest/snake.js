@@ -33,6 +33,11 @@ export function onSnake(position, { ignoreHead = false } = {}) {
         return equalPositions(segment, position);
     });
 }
+export function onSnake2(array) {
+    return array.some((partOfRedFood) => {
+        return onSnake(partOfRedFood);
+    });
+}
 function addSegments() {
     for (let i = 0; i <= newSegments - 1; i++)
         snakeBody.push(Object.assign({}, snakeBody[snakeBody.length - 1]));

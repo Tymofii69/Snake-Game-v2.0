@@ -26,11 +26,10 @@ body {
   
   .food {
     background-color: greenyellow;
-    border: .25vmin solid black;
+    /*border: .25vmin solid black;*/
   }
   
   .red-food {
     background-color: red;
-    border: .25vmin solid black;
+    /*border: .25vmin solid black;*/
   }
-  
